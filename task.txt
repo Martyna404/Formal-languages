@@ -1,0 +1,1 @@
+Print all labels defined with #define directive in "yy.lex.c" file. 
