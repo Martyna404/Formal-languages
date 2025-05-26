@@ -1,0 +1,109 @@
+Grammar
+
+    0 $accept: total $end
+
+    1 total: expression EQUAL
+
+    2 expression: expression expression PLUS
+    3           | expression expression TIMES
+    4           | NUMBER
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    PLUS (258) 2
+    TIMES (259) 3
+    NUMBER (260) 4
+    EQUAL (261) 1
+
+
+Nonterminals, with rules where they appear
+
+    $accept (7)
+        on left: 0
+    total (8)
+        on left: 1
+        on right: 0
+    expression (9)
+        on left: 2 3 4
+        on right: 1 2 3
+
+
+State 0
+
+    0 $accept: . total $end
+
+    NUMBER  shift, and go to state 1
+
+    total       go to state 2
+    expression  go to state 3
+
+
+State 1
+
+    4 expression: NUMBER .
+
+    $default  reduce using rule 4 (expression)
+
+
+State 2
+
+    0 $accept: total . $end
+
+    $end  shift, and go to state 4
+
+
+State 3
+
+    1 total: expression . EQUAL
+    2 expression: expression . expression PLUS
+    3           | expression . expression TIMES
+
+    NUMBER  shift, and go to state 1
+    EQUAL   shift, and go to state 5
+
+    expression  go to state 6
+
+
+State 4
+
+    0 $accept: total $end .
+
+    $default  accept
+
+
+State 5
+
+    1 total: expression EQUAL .
+
+    $default  reduce using rule 1 (total)
+
+
+State 6
+
+    2 expression: expression . expression PLUS
+    2           | expression expression . PLUS
+    3           | expression . expression TIMES
+    3           | expression expression . TIMES
+
+    PLUS    shift, and go to state 7
+    TIMES   shift, and go to state 8
+    NUMBER  shift, and go to state 1
+
+    expression  go to state 6
+
+
+State 7
+
+    2 expression: expression expression PLUS .
+
+    $default  reduce using rule 2 (expression)
+
+
+State 8
+
+    3 expression: expression expression TIMES .
+
+    $default  reduce using rule 3 (expression)
