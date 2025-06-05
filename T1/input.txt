@@ -1,0 +1,17 @@
+int x;
+char * s;
+double f(int a);
+char g();
+int foo();
+int h(int a, char b);
+double * fp(int x, char y);
+int;                  // missing identifier after type
+char t                // missing semicolon
+
+float x;              // unsupported type (only int, char, double allowed)
+int 5;                // invalid identifier (starts with digit)
+int foo(int a, char); // missing parameter name
+int foo(int, int b);  // first parameter missing name
+int foo(a);           // missing type for parameter ’a’
+int *;                // missing variable/function name after ’*’
+double (int a);       // missing function name
